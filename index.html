@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>لعبة دورة الماء في الطبيعة</title>
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#87CEEB,#E0F7FA);
+    text-align:center;
+}
+#game{
+    width:100%;
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+.stage{
+    display:none;
+}
+.active{
+    display:block;
+}
+.card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    margin:15px 0;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+}
+.option{
+    display:block;
+    margin:10px auto;
+    background:#4FC3F7;
+    color:white;
+}
+.correct{background:#4CAF50 !important;}
+.wrong{background:#F44336 !important;}
+</style>
+</head>
+<body>
+<div id="game">
+    <h1>🌧️ لعبة دورة الماء في الطبيعة 🌞</h1><!-- المرحلة 1 -->
+<div class="stage active" id="s1">
+    <div class="card">
+        <h2>المرحلة الأولى</h2>
+        <p>الشمس بتسخن المياه في البحار والأنهار... اسم العملية دي إيه؟</p>
+        <button class="option" onclick="check(this,false)">التكثف</button>
+        <button class="option" onclick="check(this,true)">التبخر</button>
+        <button class="option" onclick="check(this,false)">الهطول</button>
+    </div>
+</div>
+
+<!-- المرحلة 2 -->
+<div class="stage" id="s2">
+    <div class="card">
+        <h2>المرحلة الثانية</h2>
+        <p>بخار الماء يطلع لفوق ويبرد ويتحول لسحب... اسمها إيه؟</p>
+        <button class="option" onclick="check(this,true)">التكثف</button>
+        <button class="option" onclick="check(this,false)">التبخر</button>
+        <button class="option" onclick="check(this,false)">الجريان السطحي</button>
+    </div>
+</div>
+
+<!-- المرحلة 3 -->
+<div class="stage" id="s3">
+    <div class="card">
+        <h2>المرحلة الثالثة</h2>
+        <p>نزول المطر أو الثلج من السحاب للأرض يسمى؟</p>
+        <button class="option" onclick="check(this,true)">الهطول</button>
+        <button class="option" onclick="check(this,false)">التكثف</button>
+        <button class="option" onclick="check(this,false)">التبخر</button>
+    </div>
+</div>
+
+<!-- المرحلة 4 -->
+<div class="stage" id="s4">
+    <div class="card">
+        <h2>المرحلة الرابعة</h2>
+        <p>المياه بترجع للبحار والأنهار تاني عن طريق؟</p>
+        <button class="option" onclick="check(this,true)">الجريان السطحي</button>
+        <button class="option" onclick="check(this,false)">التبخر</button>
+        <button class="option" onclick="check(this,false)">التكثف</button>
+    </div>
+</div>
+
+<!-- النهاية -->
+<div class="stage" id="end">
+    <div class="card">
+        <h2>🎉 مبروك يا عالم! 🎉</h2>
+        <p>خلصت دورة الماء في الطبيعة بنجاح 💧🌍</p>
+        <button onclick="restart()">إعادة اللعب 🔁</button>
+    </div>
+</div>
+
+</div><script>
+let current = 1;
+
+function check(btn,isCorrect){
+    if(isCorrect){
+        btn.classList.add('correct');
+        setTimeout(()=>{
+            document.getElementById('s'+current).classList.remove('active');
+            current++;
+            if(current<=4){
+                document.getElementById('s'+current).classList.add('active');
+            }else{
+                document.getElementById('end').classList.add('active');
+            }
+        },700);
+    }else{
+        btn.classList.add('wrong');
+    }
+}
+
+function restart(){
+    document.getElementById('end').classList.remove('active');
+    current = 1;
+    document.getElementById('s1').classList.add('active');
+    let buttons = document.querySelectorAll('button');
+    buttons.forEach(b=>b.classList.remove('correct','wrong'));
+}
+</script></body>
+</html>
